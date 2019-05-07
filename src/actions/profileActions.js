@@ -1,9 +1,10 @@
 import axios from "axios"
 import cookie from 'react-cookies'
+let rootUrl = process.env.REACT_APP_BACKEND_API_URL + ":" + process.env.REACT_APP_BACKEND_API_PORT;
 export function getUserDetails(user_id) {
 
     return function(dispatch){
-        axios.get("http://localhost:3001/users/"+user_id, {})
+        axios.get(rootUrl + "/users/"+user_id, {})
             .then(function (response) {
               
                 console.log("User Details");
@@ -23,7 +24,7 @@ export function getUserDetails(user_id) {
 export function saveProfilePicture(file, config) {
 
     return function(dispatch){
-        axios.post("http://localhost:3001/uploads/upload/", file, config)
+        axios.post(rootUrl + "/uploads/upload/", file, config)
         .then((res, any) => {
             console.log(cookie.load('cookie').id);
             console.log(`Response from /upload in react: ${res}`);
@@ -43,7 +44,7 @@ export function saveCredentials(user_id, credId, type, kind, position, company, 
     return function(dispatch){
         console.log("Details:");
         console.log(user_id, credId, type, kind, position, company, cstartYear, cendYear, cisCurrentString, school, concentration, secConcentration, degree, graduationYear, street, city, state, zipcode, lstartYear, lendYear, lisCurrentString)
-        axios.post("http://localhost:3001/users/credentials", {
+        axios.post(rootUrl + "/users/credentials", {
             user_id, credId, type, kind, position, company, cstartYear, cendYear, cisCurrentString, school, concentration, secConcentration, degree, graduationYear, street, city, state, zipcode, lstartYear, lendYear, lisCurrentString
         })
         .then(function(response){
@@ -83,7 +84,7 @@ export function saveName(firstName, lastName, user_id) {
     console.log("In save name");
     console.log(user_id, firstName, lastName);
     return function(dispatch){
-        axios.post("http://localhost:3001/users/name", {
+        axios.post(rootUrl + "/users/name", {
             firstName, lastName, user_id
         })
             .then(function (response) {
@@ -104,7 +105,7 @@ export function getQuestionsAsked(user_id) {
     console.log("In ask questions");
     console.log(user_id);
     return function(dispatch){
-        axios.get("http://localhost:3001/users/questionsAsked/"+user_id, {
+        axios.get(rootUrl + "/users/questionsAsked/"+user_id, {
             
         })
             .then(function (response) {
@@ -124,7 +125,7 @@ export function getQuestionsAnswered(user_id) {
     console.log("In get answers");
     console.log(user_id);
     return function(dispatch){
-        axios.get("http://localhost:3001/users/questionsAnswered/"+user_id, {
+        axios.get(rootUrl + "/users/questionsAnswered/"+user_id, {
             
         })
             .then(function (response) {
@@ -144,7 +145,7 @@ export function getFollowers(user_id) {
     console.log("In get followers");
     console.log(user_id);
     return function(dispatch){
-        axios.get("http://localhost:3001/users/followers/"+user_id, {
+        axios.get(rootUrl + "/users/followers/"+user_id, {
             
         })
             .then(function (response) {
@@ -164,7 +165,7 @@ export function getFollowing(user_id) {
     console.log("In get following");
     console.log(user_id);
     return function(dispatch){
-        axios.get("http://localhost:3001/users/following/"+user_id, {
+        axios.get(rootUrl + "/users/following/"+user_id, {
             
         })
             .then(function (response) {
@@ -183,7 +184,7 @@ export function getFollowing(user_id) {
 export function follow(user_id, following){
     console.log("In set following");
     return function(dispatch){
-        axios.post("http://localhost:3001/users/follow", {
+        axios.post(rootUrl + "/users/follow", {
             user_id, following
         })
         .then(function(response){
@@ -202,7 +203,7 @@ export function follow(user_id, following){
 export function unfollow(user_id, following){
     console.log("In set un-following");
     return function(dispatch){
-        axios.post("http://localhost:3001/users/unfollow", {
+        axios.post(rootUrl + "/users/unfollow", {
             user_id, following
         })
         .then(function(response){
